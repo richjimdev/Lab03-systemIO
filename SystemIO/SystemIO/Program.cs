@@ -10,11 +10,13 @@ namespace SystemIO
         {
             string path = "../../../myWords.txt";
             Console.WriteLine("Hello World!");
-            CreateInitialFile(path);
+            //DeleteAFile(path);
+            CreateFile(path);
+            Console.WriteLine(CreateFile(path));
 
         }
 
-        public static void CreateInitialFile(string path)
+        public static bool CreateFile(string path)
         {
             string[] wordsArray = new string[5];
             wordsArray[0] = "PUPPIES";
@@ -22,18 +24,11 @@ namespace SystemIO
             wordsArray[2] = "ORANGE";
             wordsArray[3] = "WATER";
             wordsArray[4] = "WHITEBOARD";
-
+            
             try
             {
-                using (StreamWriter sw = new StreamWriter(path))
-                {
-                    foreach (string word in wordsArray)
-                    {
-                        sw.WriteLine(word);
-                    }
-                    
-                }
-
+                File.WriteAllLines(path, wordsArray);
+                
             }
             catch
             {
@@ -41,8 +36,15 @@ namespace SystemIO
             }
             finally
             {
-
             }
+
+            return File.Exists(path);
+        }
+
+        public static bool DeleteAFile(string path)
+        {
+            File.Delete(path);
+            return File.Exists(path);
         }
     }
 }
