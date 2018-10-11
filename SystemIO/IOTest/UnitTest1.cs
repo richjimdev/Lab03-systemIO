@@ -20,5 +20,13 @@ namespace IOTest
         {
             Assert.False(DeleteAFile(path));
         }
+
+        [Fact]
+        public void ReadFileReturnsArrayOfWords()
+        {
+            CreateFile(path);
+            string[] fileTest = { "PUPPIES", "LAPTOP", "ORANGE", "WATER", "WHITEBOARD" };
+            Assert.Equal(fileTest, ReadFile(path));
+        }
     }
 }
