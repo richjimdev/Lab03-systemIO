@@ -9,10 +9,8 @@ namespace SystemIO
         public static void Main(string[] args)
         {
             string path = "../../../myWords.txt";
-            Console.WriteLine("Hello World!");
             //DeleteAFile(path);
             CreateFile(path);
-            Console.WriteLine(CreateFile(path));
 
         }
 
@@ -28,14 +26,10 @@ namespace SystemIO
             try
             {
                 File.WriteAllLines(path, wordsArray);
-                
             }
             catch
             {
-
-            }
-            finally
-            {
+                throw;
             }
 
             return File.Exists(path);
@@ -45,6 +39,24 @@ namespace SystemIO
         {
             File.Delete(path);
             return File.Exists(path);
+        }
+
+        public static string[] ReadFile(string path)
+        {
+            try
+            {
+                string[] myWords = File.ReadAllLines(path);
+                return myWords;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static void AddToFile(string path, string word)
+        {
+            
         }
     }
 }

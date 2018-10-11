@@ -15,6 +15,10 @@ namespace IOTest
             Assert.True(CreateFile(path));
         }
 
-
+        [Fact]
+        public void DeleteAFileDeletesFile()
+        {
+            Assert.False(DeleteAFile(path));
+        }
     }
 }
