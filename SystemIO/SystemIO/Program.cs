@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SystemIO
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             string path = "../../../myWords.txt";
             Console.WriteLine("Hello World!");
