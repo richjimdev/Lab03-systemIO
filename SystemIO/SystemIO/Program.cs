@@ -71,12 +71,19 @@ namespace SystemIO
 
                 if (!hiddenWordString.Contains("_"))
                 {
+                    Console.WriteLine("You win! Congrats!");
                     break;
                 }
 
-                Console.WriteLine("Guess a letter");
+                Console.WriteLine("Guess a letter. Type 'quit' to give up.");
                 
                 string guess = Console.ReadLine().ToUpper();
+
+                if (guess == "QUIT")
+                {
+                    Console.WriteLine("Better luck next time! The word was: " + word);
+                    break;
+                }
 
                 for (int i = 0; i < hiddenWord.Length; i++)
                 {
@@ -88,7 +95,7 @@ namespace SystemIO
 
             }
 
-            Console.WriteLine("You win! Play again? Y/N:");
+            Console.WriteLine("Play again? Y/N:");
             string choice = Console.ReadLine().ToUpper();
             if (choice == "Y")
                 PlayGame(GetRandomWord());
