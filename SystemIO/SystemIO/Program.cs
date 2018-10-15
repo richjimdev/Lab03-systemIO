@@ -8,12 +8,20 @@ namespace SystemIO
     {
         public static void Main(string[] args)
         {
-            MainMenu();
-            
-            //AddToFile(path, "TESTING");
-            
+            try
+            {
+                MainMenu();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Please restart your console.");
+            }
         }
 
+        /// <summary>
+        /// Method to handle main navigation of the game options.
+        /// </summary>
         public static void MainMenu()
         {
             string path = "../../../myWords.txt";
@@ -59,6 +67,7 @@ namespace SystemIO
                             Console.WriteLine("Type the word you want to add:");
                             string newWord = Console.ReadLine().ToUpper();
                             AddToFile(path, newWord);
+
                             Console.WriteLine("Added new word: " + newWord);
                         }
                         else if (submenu == "2")
@@ -66,9 +75,9 @@ namespace SystemIO
                             Console.WriteLine("Type the full word you want to delete:");
                             string deleteWord = Console.ReadLine().ToUpper();
                             RemoveFromFile(path, deleteWord);
+
                             Console.WriteLine("Deleted word: " + deleteWord);
                         }
-
                         else if (submenu == "3")
                         {
                             Console.WriteLine("Returning to Main Menu");
@@ -85,6 +94,10 @@ namespace SystemIO
             Console.WriteLine("Thank you for playing!");
         }
 
+        /// <summary>
+        /// This will initiate a new game with a random work
+        /// </summary>
+        /// <param name="word">A random work, usually inserted using the GetRandomWord method</param>
         public static void PlayGame(string word)
         {
             string[] hiddenWord = TurnToHiddenWord(word);
@@ -110,6 +123,7 @@ namespace SystemIO
                     break;
                 }
 
+                //This will populate the mystery word with their correctly guessed letter.
                 for (int i = 0; i < hiddenWord.Length; i++)
                 {
                     if (word[i].ToString() == guess)
@@ -126,6 +140,10 @@ namespace SystemIO
                 PlayGame(GetRandomWord());
         }
 
+        /// <summary>
+        /// Grabs a random word from the words file
+        /// </summary>
+        /// <returns>Returns a random word</returns>
         public static string GetRandomWord()
         {
             string path = "../../../myWords.txt";
@@ -137,6 +155,11 @@ namespace SystemIO
             return allWords[randomNum];
         }
 
+        /// <summary>
+        /// Grabs a word and returns it in underscores as a 'mystery' word.
+        /// </summary>
+        /// <param name="word">The word to turn into a mystery word</param>
+        /// <returns>Returns the length of the word in a mystery word array</returns>
         public static string[] TurnToHiddenWord(string word)
         {
             string [] hiddenWord = new string[word.Length];
@@ -150,7 +173,12 @@ namespace SystemIO
             return hiddenWord;
         }
         
-
+        /// <summary>
+        /// Creates a file and writes words to it
+        /// </summary>
+        /// <param name="path">Path to where to create file</param>
+        /// <param name="words">Array of words to add to file</param>
+        /// <returns>returns a true or false statement if the file was created</returns>
         public static bool CreateFile(string path, string[] words)
         {
             try
@@ -165,12 +193,22 @@ namespace SystemIO
             return File.Exists(path);
         }
 
+        /// <summary>
+        /// Deletes a file from the directory
+        /// </summary>
+        /// <param name="path">The path of the file to delete</param>
+        /// <returns>Returns false if successful, since the file no longer exists</returns>
         public static bool DeleteAFile(string path)
         {
             File.Delete(path);
             return File.Exists(path);
         }
 
+        /// <summary>
+        /// Reads the file at the given path and returns what is inside
+        /// </summary>
+        /// <param name="path">Path of the file to read</param>
+        /// <returns>An array of strings (words)</returns>
         public static string[] ReadFile(string path)
         {
             try
@@ -184,6 +222,11 @@ namespace SystemIO
             }
         }
 
+        /// <summary>
+        /// Adds a word to our file
+        /// </summary>
+        /// <param name="path">Path of file to add word to</param>
+        /// <param name="word">Word to add to file</param>
         public static void AddToFile(string path, string word)
         {
             try
@@ -200,6 +243,11 @@ namespace SystemIO
             }
         }
 
+        /// <summary>
+        /// Removes a word from a file.
+        /// </summary>
+        /// <param name="path">Path of file to remove word from</param>
+        /// <param name="word">Word to remove.</param>
         public static void RemoveFromFile(string path, string word)
         {
             try
@@ -227,7 +275,6 @@ namespace SystemIO
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
