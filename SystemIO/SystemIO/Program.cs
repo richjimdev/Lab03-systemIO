@@ -14,23 +14,9 @@ namespace SystemIO
 
         public static void PlayGame()
         {
-            string path = "../../../myWords.txt";
+            string randomWord = GetRandomWord();
 
-            CreateFile(path);
-            string[] allWords = ReadFile(path);
-
-            Random rnd = new Random();
-            int randomNum = rnd.Next(allWords.Length);
-
-            string randomWord = allWords[randomNum];
-
-            string[] hiddenWord = new string[randomWord.Length];
-
-
-            for (int i = 0; i < hiddenWord.Length; i++)
-            {
-                    hiddenWord[i] = "_";
-            }
+            string[] hiddenWord = TurnToHiddenWord(randomWord);
             
             while (true)
             {
@@ -48,11 +34,35 @@ namespace SystemIO
                     }
                 }
             }
-
-
-
-            //Console.WriteLine(hiddenWord);
+            
         }
+
+        public static string GetRandomWord()
+        {
+            string path = "../../../myWords.txt";
+            CreateFile(path);
+
+            string[] allWords = ReadFile(path);
+
+            Random rnd = new Random();
+            int randomNum = rnd.Next(allWords.Length);
+
+            return allWords[randomNum];
+        }
+
+        public static string[] TurnToHiddenWord(string word)
+        {
+            string [] hiddenWord = new string[word.Length];
+
+
+            for (int i = 0; i < hiddenWord.Length; i++)
+            {
+                hiddenWord[i] = "_";
+            }
+
+            return hiddenWord;
+        }
+        
 
         public static bool CreateFile(string path)
         {
