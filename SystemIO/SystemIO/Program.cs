@@ -15,15 +15,20 @@ namespace SystemIO
         public static void PlayGame()
         {
             string randomWord = GetRandomWord();
-
             string[] hiddenWord = TurnToHiddenWord(randomWord);
             
             while (true)
             {
-                Console.WriteLine(string.Join("  ", hiddenWord));
+                string hiddenWordString = string.Join("  ", hiddenWord);
+                Console.WriteLine(hiddenWordString);
+
+                if (!hiddenWordString.Contains("_"))
+                {
+                    break;
+                }
 
                 Console.WriteLine("Guess a letter");
-
+                
                 string guess = Console.ReadLine().ToUpper();
 
                 for (int i = 0; i < hiddenWord.Length; i++)
@@ -33,8 +38,10 @@ namespace SystemIO
                         hiddenWord[i] = guess;
                     }
                 }
+
             }
-            
+
+            Console.WriteLine("You win! Thanks for playing!");
         }
 
         public static string GetRandomWord()
