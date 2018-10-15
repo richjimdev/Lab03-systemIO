@@ -26,22 +26,30 @@ namespace SystemIO
 
             string[] hiddenWord = new string[randomWord.Length];
 
-            string guess = "A";
 
             for (int i = 0; i < hiddenWord.Length; i++)
             {
                     hiddenWord[i] = "_";
             }
-
-            for (int i = 0; i < hiddenWord.Length; i++)
+            
+            while (true)
             {
-                if (randomWord[i].ToString() == guess)
+                Console.WriteLine(string.Join("  ", hiddenWord));
+
+                Console.WriteLine("Guess a letter");
+
+                string guess = Console.ReadLine().ToUpper();
+
+                for (int i = 0; i < hiddenWord.Length; i++)
                 {
-                    hiddenWord[i] = guess;
+                    if (randomWord[i].ToString() == guess)
+                    {
+                        hiddenWord[i] = guess;
+                    }
                 }
             }
 
-            Console.WriteLine(string.Join("  ", hiddenWord));
+
 
             //Console.WriteLine(hiddenWord);
         }
