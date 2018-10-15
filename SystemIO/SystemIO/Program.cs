@@ -8,10 +8,23 @@ namespace SystemIO
     {
         public static void Main(string[] args)
         {
-            string path = "../../../myWords.txt";
-            //DeleteAFile(path);
-            CreateFile(path);
+            PlayGame();
 
+        }
+
+        public static void PlayGame()
+        {
+            string path = "../../../myWords.txt";
+
+            CreateFile(path);
+            string[] allWords = ReadFile(path);
+
+            Random rnd = new Random();
+            int randomNum = rnd.Next(allWords.Length);
+
+            string randomWord = allWords[randomNum];
+
+            Console.WriteLine(randomWord);
         }
 
         public static bool CreateFile(string path)
