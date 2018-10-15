@@ -9,10 +9,12 @@ namespace IOTest
     {
         string path = "../../../myWords.txt";
 
+        string[] defaultWords = { "PUPPIES", "LAPTOP", "ORANGE", "WATER", "WHITEBOARD" };
+
         [Fact]
         public void CreateAFileCreatesFile()
         {
-            Assert.True(CreateFile(path));
+            Assert.True(CreateFile(path, defaultWords));
         }
 
         [Fact]
@@ -24,9 +26,15 @@ namespace IOTest
         [Fact]
         public void ReadFileReturnsArrayOfWords()
         {
-            CreateFile(path);
+            CreateFile(path, defaultWords);
             string[] fileTest = { "PUPPIES", "LAPTOP", "ORANGE", "WATER", "WHITEBOARD" };
             Assert.Equal(fileTest, ReadFile(path));
+        }
+
+        [Fact]
+        public void AddWordAddsAWord()
+        {
+            Assert.Equal("APPLES", AddToFile(path, "APPLES"));
         }
     }
 }

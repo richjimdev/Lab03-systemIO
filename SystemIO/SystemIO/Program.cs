@@ -227,7 +227,8 @@ namespace SystemIO
         /// </summary>
         /// <param name="path">Path of file to add word to</param>
         /// <param name="word">Word to add to file</param>
-        public static void AddToFile(string path, string word)
+        /// <returns>The word that was added</returns>
+        public static string AddToFile(string path, string word)
         {
             try
             {
@@ -241,6 +242,9 @@ namespace SystemIO
 
                 throw;
             }
+            string[] updatedWords = ReadFile(path);
+
+            return updatedWords[updatedWords.Length-1];
         }
 
         /// <summary>
