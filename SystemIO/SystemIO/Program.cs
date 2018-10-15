@@ -18,6 +18,8 @@ namespace SystemIO
         {
             string path = "../../../myWords.txt";
             CreateFile(path);
+            string[] allWords = ReadFile(path);
+            Console.WriteLine("First Message");
 
             while(true)
             {
@@ -32,26 +34,40 @@ namespace SystemIO
                     PlayGame(GetRandomWord());
                 else if (selection == "2")
                 {
-                    string[] allWords = ReadFile(path);
-                    Console.WriteLine("Here are the words currently in use:");
-                    Console.WriteLine(string.Join("  ", allWords));
-
-                    Console.WriteLine("1. Add a word");
-                    Console.WriteLine("2. Delete a word");
-                    Console.WriteLine("3. Delete all words!");
-                    Console.WriteLine("4. Nevermind");
-
-                    string submenu = Console.ReadLine();
-
-                    if (submenu == "1")
+                    while (true)
                     {
-                        Console.WriteLine("Type the word you want to add:");
-                        string newWord = Console.ReadLine().ToUpper();
-                        Console.WriteLine("New word is: " + newWord);
-                    }
+                        allWords = ReadFile(path);
+                        Console.WriteLine("Here are the words currently in use:");
+                        Console.WriteLine(string.Join("  ", allWords));
 
-                    if (submenu == "4")
-                        Console.WriteLine("Returning to Main Menu");
+                        Console.WriteLine("1. Add a word");
+                        Console.WriteLine("2. Delete a word");
+                        Console.WriteLine("3. Back to Main Menu");
+
+                        string submenu = Console.ReadLine();
+
+                        if (submenu == "1")
+                        {
+                            Console.WriteLine("Type the word you want to add:");
+                            string newWord = Console.ReadLine().ToUpper();
+                            AddToFile(path, newWord);
+                            Console.WriteLine("Added new word: " + newWord);
+                        }
+                        else if (submenu == "2")
+                        {
+                            //Console.WriteLine("Type the full word you want to delete:");
+                            //string deleteWord = Console.ReadLine().ToUpper();
+                            //Console.WriteLine("New word is: " + newWord);
+                        }
+
+                        else if (submenu == "3")
+                        {
+                            Console.WriteLine("Returning to Main Menu");
+                            break;
+                        }
+                        else
+                            Console.WriteLine("Please only type in 1, 2 or 3.");
+                    }
                 }
                 else if (selection == "3")
                     break;
@@ -104,8 +120,6 @@ namespace SystemIO
         public static string GetRandomWord()
         {
             string path = "../../../myWords.txt";
-            CreateFile(path);
-
             string[] allWords = ReadFile(path);
 
             Random rnd = new Random();
