@@ -33,7 +33,25 @@ namespace SystemIO
                 else if (selection == "2")
                 {
                     string[] allWords = ReadFile(path);
+                    Console.WriteLine("Here are the words currently in use:");
                     Console.WriteLine(string.Join("  ", allWords));
+
+                    Console.WriteLine("1. Add a word");
+                    Console.WriteLine("2. Delete a word");
+                    Console.WriteLine("3. Delete all words!");
+                    Console.WriteLine("4. Nevermind");
+
+                    string submenu = Console.ReadLine();
+
+                    if (submenu == "1")
+                    {
+                        Console.WriteLine("Type the word you want to add:");
+                        string newWord = Console.ReadLine().ToUpper();
+                        Console.WriteLine("New word is: " + newWord);
+                    }
+
+                    if (submenu == "4")
+                        Console.WriteLine("Returning to Main Menu");
                 }
                 else if (selection == "3")
                     break;
