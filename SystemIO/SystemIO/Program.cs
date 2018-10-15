@@ -24,7 +24,26 @@ namespace SystemIO
 
             string randomWord = allWords[randomNum];
 
-            Console.WriteLine(randomWord);
+            string[] hiddenWord = new string[randomWord.Length];
+
+            string guess = "A";
+
+            for (int i = 0; i < hiddenWord.Length; i++)
+            {
+                    hiddenWord[i] = "_";
+            }
+
+            for (int i = 0; i < hiddenWord.Length; i++)
+            {
+                if (randomWord[i].ToString() == guess)
+                {
+                    hiddenWord[i] = guess;
+                }
+            }
+
+            Console.WriteLine(string.Join("  ", hiddenWord));
+
+            //Console.WriteLine(hiddenWord);
         }
 
         public static bool CreateFile(string path)
