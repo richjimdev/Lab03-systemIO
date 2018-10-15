@@ -8,14 +8,31 @@ namespace SystemIO
     {
         public static void Main(string[] args)
         {
-            PlayGame();
+            //PlayGame(GetRandomWord());
+            string path = "../../../myWords.txt";
+            CreateFile(path);
 
+            MainMenu();
+
+            string[] allWords = ReadFile(path);
+
+            AddToFile(path, "TESTING");
+
+
+            Console.WriteLine(string.Join("  ", allWords));
         }
 
-        public static void PlayGame()
+        public static void MainMenu()
         {
-            string randomWord = GetRandomWord();
-            string[] hiddenWord = TurnToHiddenWord(randomWord);
+            Console.WriteLine("Welcome to Hangman. Please select an option below:");
+            Console.WriteLine("1. Play game with random word");
+            Console.WriteLine("2. View/Edit words");
+            Console.WriteLine("3. Exit");
+        }
+
+        public static void PlayGame(string word)
+        {
+            string[] hiddenWord = TurnToHiddenWord(word);
             
             while (true)
             {
@@ -33,7 +50,7 @@ namespace SystemIO
 
                 for (int i = 0; i < hiddenWord.Length; i++)
                 {
-                    if (randomWord[i].ToString() == guess)
+                    if (word[i].ToString() == guess)
                     {
                         hiddenWord[i] = guess;
                     }
@@ -113,7 +130,18 @@ namespace SystemIO
 
         public static void AddToFile(string path, string word)
         {
-            
+            try
+            {
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    sw.WriteLine(word);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
