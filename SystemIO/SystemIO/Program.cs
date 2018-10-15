@@ -88,7 +88,10 @@ namespace SystemIO
 
             }
 
-            Console.WriteLine("You win!");
+            Console.WriteLine("You win! Play again? Y/N:");
+            string choice = Console.ReadLine().ToUpper();
+            if (choice == "Y")
+                PlayGame(GetRandomWord());
         }
 
         public static string GetRandomWord()
