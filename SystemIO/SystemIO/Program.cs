@@ -252,7 +252,8 @@ namespace SystemIO
         /// </summary>
         /// <param name="path">Path of file to remove word from</param>
         /// <param name="word">Word to remove.</param>
-        public static void RemoveFromFile(string path, string word)
+        /// <returns>All words with the removed word gone</returns>
+        public static string[] RemoveFromFile(string path, string word)
         {
             try
             {
@@ -276,6 +277,7 @@ namespace SystemIO
 
                 DeleteAFile(path);
                 CreateFile(path, newWords);
+                return newWords;
             }
             catch (Exception)
             {
