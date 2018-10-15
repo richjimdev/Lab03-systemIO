@@ -17,9 +17,17 @@ namespace SystemIO
         public static void MainMenu()
         {
             string path = "../../../myWords.txt";
-            CreateFile(path);
+
+            string[] defaultWords = new string[5];
+            defaultWords[0] = "PUPPIES";
+            defaultWords[1] = "LAPTOP";
+            defaultWords[2] = "ORANGE";
+            defaultWords[3] = "WATER";
+            defaultWords[4] = "WHITEBOARD";
+
+            CreateFile(path, defaultWords);
+
             string[] allWords = ReadFile(path);
-            Console.WriteLine("First Message");
 
             while(true)
             {
@@ -55,9 +63,10 @@ namespace SystemIO
                         }
                         else if (submenu == "2")
                         {
-                            //Console.WriteLine("Type the full word you want to delete:");
-                            //string deleteWord = Console.ReadLine().ToUpper();
-                            //Console.WriteLine("New word is: " + newWord);
+                            Console.WriteLine("Type the full word you want to delete:");
+                            string deleteWord = Console.ReadLine().ToUpper();
+                            RemoveFromFile(path, deleteWord);
+                            Console.WriteLine("Deleted word: " + deleteWord);
                         }
 
                         else if (submenu == "3")
@@ -142,18 +151,11 @@ namespace SystemIO
         }
         
 
-        public static bool CreateFile(string path)
+        public static bool CreateFile(string path, string[] words)
         {
-            string[] wordsArray = new string[5];
-            wordsArray[0] = "PUPPIES";
-            wordsArray[1] = "LAPTOP";
-            wordsArray[2] = "ORANGE";
-            wordsArray[3] = "WATER";
-            wordsArray[4] = "WHITEBOARD";
-            
             try
             {
-                File.WriteAllLines(path, wordsArray);
+                File.WriteAllLines(path, words);
             }
             catch
             {
@@ -190,6 +192,38 @@ namespace SystemIO
                 {
                     sw.WriteLine(word);
                 }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static void RemoveFromFile(string path, string word)
+        {
+            try
+            {
+                string[] currentWords = ReadFile(path);
+                string[] newWords = new string[currentWords.Length - 1];
+                
+                int count = 0;
+                for (int i = 0; i < currentWords.Length; i++)
+                {
+                    string oldWord = currentWords[i];
+                    if (word != oldWord)
+                    {
+                        newWords[count] = currentWords[i];
+                        count++;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                DeleteAFile(path);
+                CreateFile(path, newWords);
             }
             catch (Exception)
             {
