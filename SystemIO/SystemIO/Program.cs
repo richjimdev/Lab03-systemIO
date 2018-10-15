@@ -8,26 +8,38 @@ namespace SystemIO
     {
         public static void Main(string[] args)
         {
-            //PlayGame(GetRandomWord());
-            string path = "../../../myWords.txt";
-            CreateFile(path);
-
             MainMenu();
-
-            string[] allWords = ReadFile(path);
-
-            AddToFile(path, "TESTING");
-
-
-            Console.WriteLine(string.Join("  ", allWords));
+            
+            //AddToFile(path, "TESTING");
+            
         }
 
         public static void MainMenu()
         {
-            Console.WriteLine("Welcome to Hangman. Please select an option below:");
-            Console.WriteLine("1. Play game with random word");
-            Console.WriteLine("2. View/Edit words");
-            Console.WriteLine("3. Exit");
+            string path = "../../../myWords.txt";
+            CreateFile(path);
+
+            while(true)
+            {
+                Console.WriteLine("Welcome to Hangman. Please select an option below:");
+                Console.WriteLine("1. Play game with random word");
+                Console.WriteLine("2. View/Edit words");
+                Console.WriteLine("3. Exit");
+
+                string selection = Console.ReadLine();
+
+                if (selection == "1")
+                    PlayGame(GetRandomWord());
+                else if (selection == "2")
+                {
+                    string[] allWords = ReadFile(path);
+                    Console.WriteLine(string.Join("  ", allWords));
+                }
+                else if (selection == "3")
+                    break;
+            }
+
+            Console.WriteLine("Thank you for playing!");
         }
 
         public static void PlayGame(string word)
@@ -58,7 +70,7 @@ namespace SystemIO
 
             }
 
-            Console.WriteLine("You win! Thanks for playing!");
+            Console.WriteLine("You win!");
         }
 
         public static string GetRandomWord()
