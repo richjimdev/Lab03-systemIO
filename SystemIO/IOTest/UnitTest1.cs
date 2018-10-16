@@ -47,5 +47,13 @@ namespace IOTest
             string[] deleteTest = { "PUPPIES", "ORANGE", "WATER", "WHITEBOARD" };
             Assert.Equal(deleteTest, RemoveFromFile(path, "LAPTOP"));
         }
+
+        //Test wether a guess letter is found in the word (regularly run on a loop)
+        [Fact]
+        public void CalculateCorrectGuessedLetterReturnsTrue()
+        {
+            string word = defaultWords[0];
+            Assert.True(CalculateGuess(word[0].ToString(), "P"));
+        }
     }
 }

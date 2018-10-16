@@ -124,9 +124,11 @@ namespace SystemIO
                 }
 
                 //This will populate the mystery word with their correctly guessed letter.
+
+                
                 for (int i = 0; i < hiddenWord.Length; i++)
                 {
-                    if (word[i].ToString() == guess)
+                    if (CalculateGuess(word[i].ToString(), guess))
                     {
                         hiddenWord[i] = guess;
                     }
@@ -138,6 +140,11 @@ namespace SystemIO
             string choice = Console.ReadLine().ToUpper();
             if (choice == "Y")
                 PlayGame(GetRandomWord());
+        }
+
+        public static bool CalculateGuess(string word1, string word2)
+        {
+            return word1 == word2 ? true : false;
         }
 
         /// <summary>
