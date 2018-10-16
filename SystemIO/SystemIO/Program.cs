@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -101,11 +102,13 @@ namespace SystemIO
         public static void PlayGame(string word)
         {
             string[] hiddenWord = TurnToHiddenWord(word);
+            List<string> guessedLetters = new List<string>();
             
             while (true)
             {
                 string hiddenWordString = string.Join("  ", hiddenWord);
                 Console.WriteLine(hiddenWordString);
+                Console.WriteLine("Guesses so far: " + string.Join(" ", guessedLetters));
 
                 if (!hiddenWordString.Contains("_"))
                 {
@@ -123,16 +126,21 @@ namespace SystemIO
                     break;
                 }
 
-                //This will populate the mystery word with their correctly guessed letter.
+                bool found = false;
 
-                
+                //This will populate the mystery word with their correctly guessed letter.
                 for (int i = 0; i < hiddenWord.Length; i++)
                 {
-                    if (CalculateGuess(word[i].ToString(), guess))
+                    if (CalculateGuess(word[i].ToString(), guess[0].ToString()))
                     {
-                        hiddenWord[i] = guess;
+                        hiddenWord[i] = guess[0].ToString();
+                        found = true;
                     }
                 }
+
+                // Adding wrong guesses to a list, to diplay to user
+                if (!guessedLetters.Contains(guess) && !found)
+                    guessedLetters.Add(guess[0].ToString());
 
             }
 
@@ -142,6 +150,12 @@ namespace SystemIO
                 PlayGame(GetRandomWord());
         }
 
+        /// <summary>
+        /// Test wether an input letter matches a second letter (used in a loop)
+        /// </summary>
+        /// <param name="word1">Letter from the original work, run through a loop</param>
+        /// <param name="word2">Word that the user has input as their guess</param>
+        /// <returns>Returns true or false if guess is correct</returns>
         public static bool CalculateGuess(string word1, string word2)
         {
             return word1 == word2 ? true : false;
